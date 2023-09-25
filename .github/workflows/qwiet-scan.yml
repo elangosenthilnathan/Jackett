@@ -28,7 +28,7 @@ jobs:
       working-directory: .\src
     - name: Build Jackett App
       run: dotnet build --no-restore
-
+      working-directory: .\src
     - name: Extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
