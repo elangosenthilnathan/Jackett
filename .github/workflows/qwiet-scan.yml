@@ -35,6 +35,7 @@ jobs:
       id: extract_branch
     - name: Analyze with NextGen Static Analysis
       run: .\sl analyze --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp --dotnet --cpg **/Jackett.sln
+      working-directory: .\src
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         SHIFTLEFT_API_HOST: www.shiftleft.io
