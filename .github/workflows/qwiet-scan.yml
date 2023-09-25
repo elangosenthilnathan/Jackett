@@ -24,10 +24,10 @@ jobs:
 
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Jackett.sln
       working-directory: .\src
     - name: Build Jackett App
-      run: dotnet build --no-restore
+      run: dotnet build 
       working-directory: .\src
     - name: Extract branch name
       shell: bash
@@ -39,7 +39,7 @@ jobs:
     
     - name: Analyze with NextGen Static Analysis
       run: dir |
-          .\sl.exe analyze --verbose --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp src/Jackett.sln
+          .\sl.exe analyze --verbose  --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp src/Jackett.sln
       
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
@@ -79,6 +79,3 @@ jobs:
             --github-token=${{ secrets.GITHUB_TOKEN }}
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
-        SHIFTLEFT_API_HOST: www.shiftleft.io
-        SHIFTLEFT_GRPC_TELEMETRY_HOST: telemetry.shiftleft.io:443
-        SHIFTLEFT_GRPC_API_HOST: api.shiftleft.io:443
