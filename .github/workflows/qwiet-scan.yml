@@ -36,7 +36,7 @@ jobs:
     - name: Display Contents
       shell: bash
       run: ls && pwd
-      id: extract_branch      
+    
     - name: Analyze with NextGen Static Analysis
       run: .\sl.exe analyze --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp --dotnet --cpg **\Jackett.sln
       
