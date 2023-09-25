@@ -25,6 +25,7 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: .\src
     - name: Build Jackett App
       run: dotnet build --no-restore
 
