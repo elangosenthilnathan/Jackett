@@ -1,6 +1,6 @@
 # This workflow integrates Qwiet NG SAST with GitHub
 # Visit https://docs.shiftleft.io for help
-name: ShiftLeft
+name: Qwiet SAST
 
 on:
   pull_request:
@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 5.0.x
-    - name: Download ShiftLeft CLI
+    - name: Download Qwiet CLI
       run: |
         Invoke-WebRequest -Uri 'https://cdn.shiftleft.io/download/sl-latest-windows-x64.zip' -OutFile sl.zip
         Expand-Archive -Path sl.zip -DestinationPath .
