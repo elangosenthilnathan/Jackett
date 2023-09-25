@@ -5,6 +5,7 @@ name: Qwiet SAST
 on:
   pull_request:
   workflow_dispatch:
+  push: 
 
 jobs:
   NextGen-Static-Analysis:
@@ -21,8 +22,12 @@ jobs:
         Invoke-WebRequest -Uri 'https://cdn.shiftleft.io/download/sl-latest-windows-x64.zip' -OutFile sl.zip
         Expand-Archive -Path sl.zip -DestinationPath .
 
-    - name: Build web api
-      run: dotnet build Jackett
+
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build Jackett App
+      run: dotnet build --no-restore
+
     - name: Extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
