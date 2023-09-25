@@ -35,16 +35,14 @@ jobs:
       id: extract_branch
     - name: Display Contents
       shell: bash
-      run: ls && pwd
+      run: ls && "echo __________" && ls src && "echo -------" && pwd
     
     - name: Analyze with NextGen Static Analysis
-      run: .\sl.exe analyze --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp **/Jackett.sln
+      run: dir |
+          .\sl.exe analyze --verbose --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp src/Jackett.sln
       
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
-        SHIFTLEFT_API_HOST: www.shiftleft.io
-        SHIFTLEFT_GRPC_TELEMETRY_HOST: telemetry.shiftleft.io:443
-        SHIFTLEFT_GRPC_API_HOST: api.shiftleft.io:443
 
     - name: Create status check
       env:
