@@ -33,9 +33,13 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+    - name: Display Contents
+      shell: bash
+      run: ls && pwd
+      id: extract_branch      
     - name: Analyze with NextGen Static Analysis
       run: .\sl.exe analyze --strict --app Jackett-csharp-demo --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --csharp --dotnet --cpg **\Jackett.sln
-      working-directory: .\src
+      
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         SHIFTLEFT_API_HOST: www.shiftleft.io
@@ -70,7 +74,7 @@ jobs:
         Expand-Archive -Path sl.zip -DestinationPath .
     - name: Validate Build Rules
       run: |
-        .\sl check-analysis --app Jackett-csharp-demo `
+        .\sl.exe check-analysis --app Jackett-csharp-demo `
             --github-pr-number=${{github.event.number}} `
             --github-pr-user=${{ github.repository_owner }} `
             --github-pr-repo=${{ github.event.repository.name }} `
