@@ -35,7 +35,7 @@ jobs:
       id: extract_branch
     - name: Display Contents
       shell: bash
-      run: ls && "echo __________" && ls src && "echo -------" && pwd
+      run: ls src
     
     - name: Analyze with NextGen Static Analysis
       run: dir |
